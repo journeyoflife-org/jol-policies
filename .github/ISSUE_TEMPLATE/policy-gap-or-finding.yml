@@ -1,0 +1,56 @@
+name: Policy Gap or Finding
+description: Report a gap, ambiguity, or missing control mapping in the ISMS policy suite.
+title: "[GAP]: <short summary>"
+labels: ["policy-gap", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this to report a compliance gap, ambiguity, or missing control mapping.
+        For a security **vulnerability**, do NOT open a public issue — use the private
+        disclosure channel described in `SECURITY.md`.
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary of the gap or finding
+      description: Clearly describe the gap, ambiguity, or missing mapping.
+    validations:
+      required: true
+  - type: input
+    id: affected
+    attributes:
+      label: Affected document(s)
+      description: Files or Document IDs involved.
+      placeholder: e.g. docs/control-mapping-matrix.md, POL-CHG-004
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      options:
+        - Critical
+        - High
+        - Medium
+        - Low
+        - Editorial
+    validations:
+      required: true
+  - type: textarea
+    id: control
+    attributes:
+      label: Framework / control reference
+      description: Cite the relevant criteria or controls.
+      placeholder: e.g. SOC 2 CC8.1; ISO 27001 A.8.32; GDPR Art. 32
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected vs actual
+      description: What the policy should state versus what it currently states.
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Confirmations
+      options:
+        - label: This is NOT a security vulnerability requiring private disclosure.
+          required: true
+        - label: I have not included secrets, credentials, or personal data.
+          required: true

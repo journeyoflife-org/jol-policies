@@ -1,0 +1,24 @@
+# CODEOWNERS — JOL Policies (ISMS policy suite)
+#
+# Each line is a file pattern followed by one or more owners; the last match wins.
+# NOTE: only teams verified to exist in `journeyoflife-org` are referenced here.
+# (The org's teams are: backend, data, devops, frontend, security. The template's
+#  `platform-core`/`docs` teams do not exist and are deliberately not used.)
+
+# Default ownership — the security team governs the ISMS policy suite.
+*                                   @journeyoflife-org/security
+
+# Policy documents and the authoritative mappings require security review.
+policies/                           @journeyoflife-org/security
+docs/control-mapping-matrix.md      @journeyoflife-org/security
+docs/document-control.md            @journeyoflife-org/security
+docs/scope-statement.md             @journeyoflife-org/security
+
+# Security- and governance-sensitive paths.
+SECURITY.md                         @journeyoflife-org/security
+CODE_OF_CONDUCT.md                  @journeyoflife-org/security
+.github/CODEOWNERS                  @journeyoflife-org/security
+.github/workflows/                  @journeyoflife-org/security
+
+# CI / dependency automation.
+.github/dependabot.yml              @journeyoflife-org/security

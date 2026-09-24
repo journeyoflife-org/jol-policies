@@ -1,0 +1,48 @@
+name: compliance-check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  coverage:
+    name: Document control & mapping coverage
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Every policy has a Document-Control block and ID
+        run: |
+          set -euo pipefail
+          fail=0
+          shopt -s nullglob
+          for f in policies/*.md; do
+            grep -q '^## Document Control' "$f" || { echo "MISSING '## Document Control': $f"; fail=1; }
+            grep -q 'Document ID' "$f"          || { echo "MISSING 'Document ID' field: $f"; fail=1; }
+            grep -q 'Classification' "$f"       || { echo "MISSING 'Classification' field: $f"; fail=1; }
+          done
+          [ "$fail" -eq 0 ] || exit 1
+          echo "Document-control blocks present for all policies."
+
+      - name: Every policy ID appears in the control-mapping matrix
+        run: |
+          set -euo pipefail
+          fail=0
+          for id in POL-ISM-001 POL-GOV-002 POL-ACC-003 POL-CHG-004 POL-AUP-005 POL-CLS-006; do
+            grep -q "$id" docs/control-mapping-matrix.md || { echo "UNMAPPED in matrix: $id"; fail=1; }
+          done
+          [ "$fail" -eq 0 ] || exit 1
+          echo "Control-mapping matrix covers all policy IDs."
+
+      - name: Authoritative mapping file exists
+        run: |
+          set -euo pipefail
+          test -f docs/control-mapping-matrix.md
+          test -f docs/document-control.md
+          test -f docs/review-schedule.md
+          echo "Governance spine present."

@@ -1,0 +1,67 @@
+name: Policy Change Request
+description: Propose a change to a JOL ISMS policy document.
+title: "[POL-CHG]: <short summary>"
+labels: ["policy-change", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for proposing a policy change. Substantive changes require policy-owner and
+        JOL Governance Board approval. **Do not include secrets, credentials, or personal data.**
+  - type: input
+    id: doc-id
+    attributes:
+      label: Policy Document ID
+      description: The primary document this change targets (e.g. POL-ACC-003).
+      placeholder: POL-XXX-NNN
+    validations:
+      required: true
+  - type: dropdown
+    id: policy
+    attributes:
+      label: Policy / area
+      multiple: true
+      options:
+        - Information Security Policy (POL-ISM-001)
+        - Roles & Responsibilities (POL-GOV-002)
+        - Access Control Policy (POL-ACC-003)
+        - Change Management Policy (POL-CHG-004)
+        - Acceptable Use Policy (POL-AUP-005)
+        - Data Classification & Handling (POL-CLS-006)
+        - Governance / docs / tooling
+    validations:
+      required: true
+  - type: textarea
+    id: change
+    attributes:
+      label: Proposed change
+      description: What should change. Provide exact new/old wording where possible.
+    validations:
+      required: true
+  - type: textarea
+    id: driver
+    attributes:
+      label: Compliance driver
+      description: The control, audit finding, regulatory change, or incident lesson motivating this.
+      placeholder: e.g. ISO 27001 A.8.5 / SOC 2 CC6.7 — require MFA for privileged access
+    validations:
+      required: true
+  - type: dropdown
+    id: frameworks
+    attributes:
+      label: Frameworks affected
+      multiple: true
+      options:
+        - SOC 2
+        - ISO 27001
+        - GDPR
+        - None / editorial only
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Confirmations
+      options:
+        - label: I have not included secrets, credentials, or personal data.
+          required: true
+        - label: I understand this change requires owner and Governance Board approval.
+          required: true
